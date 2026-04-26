@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HerMind — Women's Mental Wellness Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+/* ─── CSS Variables ─── */
+:root {
+  --lavender:     #c4b5d4;
+  --lavender-deep:#9b84b8;
+  --blush:        #f0cfc7;
+  --blush-light:  #f9ece8;
+  --sage:         #b5cfc4;
+  --sage-deep:    #7aab99;
+  --cream:        #faf7f2;
+  --warm-white:   #fffcf8;
+  --beige:        #ede8df;
+  --text-dark:    #2c2230;
+  --text-mid:     #5a4f62;
+  --text-light:   #8f849a;
+  --gold:         #c8a97a;
+  --gold-light:   #e8d9c0;
+ 
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+ 
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  28px;
+  --radius-xl:  48px;
+ 
+  --shadow-soft: 0 4px 32px rgba(155,132,184,.12);
+  --shadow-card: 0 2px 24px rgba(44,34,48,.08);
+  --shadow-hover:0 12px 48px rgba(155,132,184,.22);
+ 
+  --transition: 0.38s cubic-bezier(.22,.68,0,1.2);
+}
+ 
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--warm-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+ 
+/* ─── Utility ─── */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.tag {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--lavender-deep);
+  background: rgba(196,181,212,.15);
+  border: 1px solid rgba(196,181,212,.35);
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--text-dark);
+  color: var(--cream);
+}
+.btn-primary:hover { background: var(--lavender-deep); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.btn-outline {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1.5px solid rgba(44,34,48,.22);
+}
+.btn-outline:hover { border-color: var(--lavender-deep); color: var(--lavender-deep); transform: translateY(-2px); }
+.btn-lavender {
+  background: var(--lavender-deep);
+  color: #fff;
+}
+.btn-lavender:hover { background: var(--text-dark); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+ 
+/* ─── Scroll Reveal ─── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+ 
+/* ─── Noise Overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px;
+}
+ 
+/* ═══════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 18px 0;
+  transition: background .4s, box-shadow .4s, padding .4s;
+}
+nav.scrolled {
+  background: rgba(250,247,242,.9);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(44,34,48,.06);
+  padding: 12px 0;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  letter-spacing: -.01em;
+}
+.logo span { color: var(--lavender-deep); }
+.nav-links {
+  display: flex; gap: 32px; align-items: center;
+}
+.nav-links a {
+  font-size: .88rem;
+  color: var(--text-mid);
+  font-weight: 400;
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--lavender-deep); }
+.nav-cta { display: flex; gap: 12px; align-items: center; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--text-dark); transition: var(--transition); }
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  z-index: 850;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
+}
+.mobile-menu.open { opacity: 1; pointer-events: all; display: flex; }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; color: var(--text-dark); }
+.mobile-menu a:hover { color: var(--lavender-deep); }
+ 
+/* ═══════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--warm-white);
+  padding-top: 100px;
+}
+.hero-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.blob-1 { width: 600px; height: 600px; background: rgba(196,181,212,.28); top: -100px; right: -80px; }
+.blob-2 { width: 400px; height: 400px; background: rgba(240,207,199,.3); bottom: 0; left: -60px; }
+.blob-3 { width: 300px; height: 300px; background: rgba(181,207,196,.2); top: 30%; left: 35%; }
+ 
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: 60px 0;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.hero-eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lavender-deep); }
+.hero-eyebrow-text { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-light); }
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+}
+.hero-h1 em { font-style: italic; color: var(--lavender-deep); }
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-mid);
+  font-weight: 300;
+  line-height: 1.75;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.stat-item {}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1;
+}
+.stat-num span { color: var(--lavender-deep); }
+.stat-label { font-size: .78rem; color: var(--text-light); margin-top: 4px; letter-spacing: .04em; }
+ 
+/* Hero visual */
+.hero-visual { position: relative; }
+.hero-card-main {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(196,181,212,.25);
+  padding: 36px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.hero-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--lavender-deep), var(--blush), var(--sage));
+}
+.card-avatar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.card-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  border: 2px solid rgba(196,181,212,.4);
+}
+.card-user-info {}
+.card-user-name { font-weight: 500; font-size: .95rem; }
+.card-user-sub { font-size: .78rem; color: var(--text-light); }
+.card-quote {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.card-chip {
+  font-size: .72rem;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.chip-lavender { background: rgba(196,181,212,.25); color: var(--lavender-deep); }
+.chip-blush { background: rgba(240,207,199,.35); color: #b07060; }
+.chip-sage { background: rgba(181,207,196,.3); color: var(--sage-deep); }
+ 
+.hero-float-card {
+  position: absolute;
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(196,181,212,.25);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+  animation: float 5s ease-in-out infinite;
+}
+.hero-float-1 { top: -24px; right: 24px; animation-delay: 0s; }
+.hero-float-2 { bottom: 24px; left: -24px; animation-delay: 2s; }
+.float-label { font-size: .7rem; color: var(--text-light); margin-bottom: 4px; }
+.float-val { font-weight: 600; font-size: 1.1rem; color: var(--text-dark); }
+.float-sub { font-size: .7rem; color: var(--sage-deep); margin-top: 2px; }
+ 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+ 
+/* ═══════════════════════════════════════
+   MARQUEE BAND
+════════════════════════════════════════ */
+.marquee-band {
+  padding: 20px 0;
+  background: var(--text-dark);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 28s linear infinite;
+}
+.marquee-inner span {
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(250,247,242,.55);
+}
+.marquee-inner .dot { color: var(--lavender); }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+ 
+/* ═══════════════════════════════════════
+   PROBLEM STATEMENT
+════════════════════════════════════════ */
+.problem {
+  padding: 120px 0;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.problem::after {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 400px;
+  color: rgba(196,181,212,.12);
+  position: absolute;
+  top: -60px; right: -20px;
+  line-height: 1;
+  pointer-events: none;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.problem-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.stat-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  border: 1px solid rgba(196,181,212,.2);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.stat-card:hover::before { opacity: 1; }
+.stat-card.c1::before { background: var(--lavender-deep); }
+.stat-card.c2::before { background: var(--blush); }
+.stat-card.c3::before { background: var(--sage-deep); }
+.stat-card.c4::before { background: var(--gold); }
+.stat-card-num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-card-num em { font-style: normal; }
+.stat-card-num.c1 em { color: var(--lavender-deep); }
+.stat-card-num.c2 em { color: #c07a6a; }
+.stat-card-num.c3 em { color: var(--sage-deep); }
+.stat-card-num.c4 em { color: var(--gold); }
+.stat-card-label { font-size: .85rem; color: var(--text-mid); line-height: 1.5; }
+ 
+/* ═══════════════════════════════════════
+   WHY WOMEN
+════════════════════════════════════════ */
+.why-women {
+  padding: 120px 0;
+  background: white;
+}
+.why-header { text-align: center; margin-bottom: 72px; }
+.why-header .section-sub { margin: 16px auto 0; }
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.why-card {
+  padding: 36px 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.why-card.bg-lav { background: rgba(196,181,212,.12); }
+.why-card.bg-blush { background: rgba(240,207,199,.15); }
+.why-card.bg-sage { background: rgba(181,207,196,.12); }
+.why-card.bg-gold { background: rgba(200,169,122,.1); }
+.why-card.bg-cream { background: var(--beige); }
+.why-card.bg-white { background: #f8f5ff; }
+.why-card:hover { border-color: rgba(196,181,212,.4); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.why-icon { font-size: 2.2rem; margin-bottom: 20px; }
+.why-card h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; margin-bottom: 12px; }
+.why-card p { font-size: .9rem; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
+ 
+/* ═══════════════════════════════════════
+   FEATURES
+════════════════════════════════════════ */
+.features {
+  padding: 120px 0;
+  background: var(--cream);
+}
+.features-header { margin-bottom: 72px; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.feature-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  border: 1px solid rgba(196,181,212,.18);
+  transition: var(--transition);
+  cursor: default;
+}
+.feature-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-5px); border-color: var(--lavender); }
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.fi-lav { background: rgba(196,181,212,.2); }
+.fi-blush { background: rgba(240,207,199,.3); }
+.fi-sage { background: rgba(181,207,196,.2); }
+.fi-gold { background: rgba(200,169,122,.15); }
+.feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+.feature-card p { font-size: .85rem; color: var(--text-mid); line-height: 1.65; font-weight: 300; }
+ 
+/* ═══════════════════════════════════════
+   AWARENESS
+════════════════════════════════════════ */
+.awareness {
+  padding: 120px 0;
+  background: var(--text-dark);
+  position: relative;
+  overflow: hidden;
+}
+.awareness-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(196,181,212,.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(240,207,199,.1) 0%, transparent 50%);
+}
+.awareness-header { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+.awareness-header .section-title { color: var(--cream); }
+.awareness-header .section-sub { color: rgba(250,247,242,.6); margin: 16px auto 0; }
+.awareness-header .tag { border-color: rgba(196,181,212,.4); color: var(--lavender); background: rgba(196,181,212,.1); }
+.awareness-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative; z-index: 1;
+}
+.awareness-card {
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  border: 1px solid rgba(250,247,242,.08);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.awareness-card:hover { transform: translateY(-5px); border-color: rgba(196,181,212,.3); }
+.aw-1 { background: rgba(196,181,212,.08); }
+.aw-2 { background: rgba(240,207,199,.06); }
+.aw-3 { background: rgba(181,207,196,.06); }
+.awareness-card .icon { font-size: 2.5rem; margin-bottom: 24px; }
+.awareness-card h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--cream); margin-bottom: 12px; font-weight: 400; }
+.awareness-card p { font-size: .88rem; color: rgba(250,247,242,.6); line-height: 1.75; font-weight: 300; }
+.awareness-card .aw-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 24px; font-size: .82rem;
+  color: var(--lavender); transition: gap .3s;
+}
+.awareness-card:hover .aw-link { gap: 12px; }
+ 
+/* ═══════════════════════════════════════
+   BUSINESS MODEL
+════════════════════════════════════════ */
+.business {
+  padding: 120px 0;
+  background: white;
+}
+.business-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.revenue-list { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.rev-item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  border: 1px solid rgba(196,181,212,.18);
+  transition: var(--transition);
+}
+.rev-item:hover { background: rgba(196,181,212,.12); transform: translateX(6px); }
+.rev-icon { font-size: 1.5rem; flex-shrink: 0; }
+.rev-text h4 { font-size: .95rem; font-weight: 500; }
+.rev-text p { font-size: .82rem; color: var(--text-light); margin-top: 2px; }
+.rev-badge {
+  margin-left: auto;
+  font-size: .72rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+.badge-high { background: rgba(122,171,153,.15); color: var(--sage-deep); }
+.badge-med { background: rgba(196,181,212,.2); color: var(--lavender-deep); }
+ 
+.business-visual {
+  background: var(--cream);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  border: 1px solid rgba(196,181,212,.2);
+  position: relative;
+  overflow: hidden;
+}
+.business-visual::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--lavender-deep), var(--sage-deep));
+}
+.bv-title { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 8px; }
+.bv-sub { font-size: .85rem; color: var(--text-light); margin-bottom: 32px; }
+.bv-rows { display: flex; flex-direction: column; gap: 16px; }
+.bv-row { display: flex; flex-direction: column; gap: 6px; }
+.bv-row-label { display: flex; justify-content: space-between; font-size: .82rem; }
+.bv-row-label span:last-child { color: var(--lavender-deep); font-weight: 600; }
+.bv-bar { height: 8px; background: rgba(196,181,212,.2); border-radius: 100px; overflow: hidden; }
+.bv-fill { height: 100%; border-radius: 100px; transition: width 1.4s cubic-bezier(.22,.68,0,1); }
+.fill-lav { background: linear-gradient(90deg, var(--lavender-deep), var(--lavender)); }
+.fill-sage { background: linear-gradient(90deg, var(--sage-deep), var(--sage)); }
+.fill-blush { background: linear-gradient(90deg, #c07a6a, var(--blush)); }
+.fill-gold { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+ 
+/* ═══════════════════════════════════════
+   IMPACT
+════════════════════════════════════════ */
+.impact {
+  padding: 120px 0;
+  background: linear-gradient(135deg, rgba(196,181,212,.1) 0%, rgba(181,207,196,.1) 100%);
+}
+.impact-header { text-align: center; margin-bottom: 72px; }
+.impact-header .section-sub { margin: 16px auto 0; }
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 60px;
+}
+.impact-num-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(196,181,212,.2);
+  transition: var(--transition);
+}
+.impact-num-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.impact-number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--text-dark);
+  line-height: 1;
+}
+.impact-number em { font-style: normal; color: var(--lavender-deep); }
+.impact-noun { font-size: .82rem; color: var(--text-light); margin-top: 8px; letter-spacing: .04em; }
+.impact-cta-band {
+  background: var(--text-dark);
+  border-radius: var(--radius-xl);
+  padding: 56px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.impact-cta-band h2 { font-family: var(--font-display); font-size: 2.2rem; color: var(--cream); font-weight: 300; }
+.impact-cta-band h2 em { font-style: italic; color: var(--lavender); }
+ 
+/* ═══════════════════════════════════════
+   TESTIMONIALS
+════════════════════════════════════════ */
+.testimonials { padding: 120px 0; background: white; }
+.testimonials-header { text-align: center; margin-bottom: 64px; }
+.testimonials-header .section-sub { margin: 16px auto 0; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.testi-card {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  border: 1px solid rgba(196,181,212,.2);
+  transition: var(--transition);
+  position: relative;
+}
+.testi-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.testi-quote {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--lavender);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.testi-text {
+  font-size: .95rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  border: 2px solid rgba(196,181,212,.35);
+  background: rgba(196,181,212,.15);
+}
+.testi-name { font-weight: 600; font-size: .9rem; }
+.testi-role { font-size: .78rem; color: var(--text-light); }
+.stars { color: var(--gold); font-size: .85rem; margin-bottom: 12px; }
+ 
+/* ═══════════════════════════════════════
+   PRICING
+════════════════════════════════════════ */
+.pricing { padding: 120px 0; background: var(--cream); }
+.pricing-header { text-align: center; margin-bottom: 72px; }
+.pricing-header .section-sub { margin: 16px auto 0; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.price-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  border: 1px solid rgba(196,181,212,.2);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.price-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-5px); }
+.price-card.featured { border-color: var(--lavender-deep); }
+.price-card.featured::before {
+  content: 'Most Popular';
+  position: absolute;
+  top: 20px; right: 20px;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--lavender-deep);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+.price-name { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 8px; }
+.price-desc { font-size: .85rem; color: var(--text-light); margin-bottom: 28px; }
+.price-amount {
+  margin-bottom: 32px;
+}
+.price-currency { font-size: 1.2rem; font-weight: 500; vertical-align: super; color: var(--text-mid); }
+.price-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1;
+}
+.price-period { font-size: .85rem; color: var(--text-light); }
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--text-mid); }
+.price-features li::before { content: '✓'; color: var(--sage-deep); font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+.price-features li.off { color: var(--text-light); }
+.price-features li.off::before { content: '—'; color: rgba(180,180,180,.5); }
+ 
+/* ═══════════════════════════════════════
+   PARTNERSHIPS
+════════════════════════════════════════ */
+.partnerships {
+  padding: 120px 0;
+  background: white;
+}
+.partnerships-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.partner-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+.partner-chip {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(196,181,212,.2);
+  transition: var(--transition);
+}
+.partner-chip:hover { background: rgba(196,181,212,.1); border-color: var(--lavender); transform: translateY(-2px); }
+.partner-chip .pc-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.partner-chip h4 { font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
+.partner-chip p { font-size: .78rem; color: var(--text-light); }
+.investor-box {
+  background: var(--cream);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  border: 1px solid rgba(196,181,212,.2);
+}
+.investor-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+.inv-metric { padding: 20px; background: white; border-radius: var(--radius-md); border: 1px solid rgba(196,181,212,.15); }
+.inv-metric-val { font-family: var(--font-display); font-size: 1.8rem; color: var(--lavender-deep); }
+.inv-metric-label { font-size: .78rem; color: var(--text-light); margin-top: 4px; }
+ 
+/* ═══════════════════════════════════════
+   VISION
+════════════════════════════════════════ */
+.vision {
+  padding: 120px 0;
+  background: var(--text-dark);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.vision::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(196,181,212,.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.vision .section-title { color: var(--cream); }
+.vision .section-sub { color: rgba(250,247,242,.55); margin: 20px auto; max-width: 600px; }
+.vision-milestones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+  background: rgba(250,247,242,.06);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.milestone {
+  padding: 40px 28px;
+  background: var(--text-dark);
+  border-right: 1px solid rgba(250,247,242,.06);
+  transition: background .3s;
+}
+.milestone:last-child { border-right: none; }
+.milestone:hover { background: rgba(196,181,212,.08); }
+.milestone-year {
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--lavender);
+  margin-bottom: 12px;
+}
+.milestone h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--cream); margin-bottom: 8px; font-weight: 400; }
+.milestone p { font-size: .82rem; color: rgba(250,247,242,.5); line-height: 1.6; }
+ 
+/* ═══════════════════════════════════════
+   CONTACT
+════════════════════════════════════════ */
+.contact { padding: 120px 0; background: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-info { }
+.contact-info .section-sub { margin-top: 16px; }
+.contact-details { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+.contact-item { display: flex; align-items: center; gap: 14px; font-size: .9rem; color: var(--text-mid); }
+.contact-item-icon { font-size: 1.2rem; }
+.contact-form { background: white; border-radius: var(--radius-xl); padding: 48px; border: 1px solid rgba(196,181,212,.2); box-shadow: var(--shadow-soft); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.form-group label { font-size: .82rem; font-weight: 500; color: var(--text-mid); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 1.5px solid rgba(196,181,212,.3);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: var(--text-dark);
+  background: var(--cream);
+  transition: border-color .25s, box-shadow .25s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--lavender-deep); box-shadow: 0 0 0 3px rgba(155,132,184,.15); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+ 
+/* ═══════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  background: var(--text-dark);
+  padding: 72px 0 32px;
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(250,247,242,.08);
+}
+.footer-brand .logo { color: var(--cream); }
+.footer-brand p { font-size: .85rem; color: rgba(250,247,242,.45); line-height: 1.75; margin-top: 16px; max-width: 280px; font-weight: 300; }
+.footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+.social-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(250,247,242,.06);
+  border: 1px solid rgba(250,247,242,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  color: rgba(250,247,242,.5);
+  transition: all .25s;
+  cursor: pointer;
+}
+.social-btn:hover { background: rgba(196,181,212,.2); border-color: var(--lavender); color: var(--lavender); }
+.footer-col h4 { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(250,247,242,.35); margin-bottom: 20px; }
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: .88rem; color: rgba(250,247,242,.5); transition: color .25s; }
+.footer-col ul li a:hover { color: var(--lavender); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { font-size: .8rem; color: rgba(250,247,242,.3); }
+.footer-bottom-links { display: flex; gap: 20px; }
+.footer-bottom-links a { font-size: .8rem; color: rgba(250,247,242,.3); transition: color .25s; }
+.footer-bottom-links a:hover { color: var(--lavender); }
+ 
+/* ═══════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { max-width: 520px; margin: 0 auto; }
+  .problem-grid { grid-template-columns: 1fr; gap: 48px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .vision-milestones { grid-template-columns: repeat(2, 1fr); }
+  .footer-main { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .awareness-cards { grid-template-columns: 1fr; }
+  .business-grid { grid-template-columns: 1fr; gap: 48px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .partnerships-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+  .impact-cta-band { flex-direction: column; text-align: center; }
+  .hero-stats { gap: 24px; }
+  .footer-main { grid-template-columns: 1fr; }
+  .vision-milestones { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .problem-stats-grid { grid-template-columns: 1fr 1fr; }
+  .vision-milestones { grid-template-columns: 1fr; }
+  .partner-types { grid-template-columns: 1fr; }
+  .investor-metrics { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+ 
+<!-- ════ NAV ════ -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">Her<span>Mind</span></a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#features">Platform</a></li>
+      <li><a href="#business">Business</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#partner">Partners</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-outline" style="padding:10px 22px;font-size:.85rem;">Talk to us</a>
+      <a href="#pricing" class="btn btn-primary" style="padding:10px 22px;font-size:.85rem;">Get Started</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+ 
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#problem" onclick="toggleMenu()">Problem</a>
+  <a href="#features" onclick="toggleMenu()">Platform</a>
+  <a href="#business" onclick="toggleMenu()">Business</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#partner" onclick="toggleMenu()">Partners</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+ 
+<!-- ════ HERO ════ -->
+<section class="hero" id="home">
+  <div class="hero-bg-blob blob-1"></div>
+  <div class="hero-bg-blob blob-2"></div>
+  <div class="hero-bg-blob blob-3"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span class="hero-eyebrow-text">Women's Mental Wellness Platform</span>
+        </div>
+        <h1 class="hero-h1">
+          Mental wellness,<br>
+          <em>designed</em> for<br>
+          every woman.
+        </h1>
+        <p class="hero-sub">
+          HerMind is a comprehensive digital sanctuary where women find expert care, community, and tools to prioritise their emotional wellbeing — from self-discovery to expert therapy.
+        </p>
+        <div class="hero-actions">
+          <a href="#pricing" class="btn btn-primary">Start Your Journey →</a>
+          <a href="#features" class="btn btn-outline">Explore Platform</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">40<span>K+</span></div>
+            <div class="stat-label">Women supported</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">96<span>%</span></div>
+            <div class="stat-label">Report improvement</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">180<span>+</span></div>
+            <div class="stat-label">Expert counselors</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-float-card hero-float-1">
+          <div class="float-label">Today's check-in 🌸</div>
+          <div class="float-val">Feeling grounded</div>
+          <div class="float-sub">+12% calmer than last week</div>
+        </div>
+        <div class="hero-card-main">
+          <div class="card-avatar-row">
+            <div class="card-avatar">🌿</div>
+            <div class="card-user-info">
+              <div class="card-user-name">Priya M.</div>
+              <div class="card-user-sub">HerMind Premium · 6 months</div>
+            </div>
+          </div>
+          <div class="card-quote">
+            "For the first time in years, I actually feel like someone understands what I'm going through."
+          </div>
+          <div class="card-tags">
+            <span class="card-chip chip-lavender">Anxiety management</span>
+            <span class="card-chip chip-blush">Burnout recovery</span>
+            <span class="card-chip chip-sage">Daily journaling</span>
+          </div>
+        </div>
+        <div class="hero-float-card hero-float-2">
+          <div class="float-label">Session completed ✓</div>
+          <div class="float-val">Dr. Anya Kapoor</div>
+          <div class="float-sub">Cognitive behavioural therapy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ MARQUEE ════ -->
+<div class="marquee-band">
+  <div class="marquee-inner">
+    <span>Mental Wellness</span><span class="dot">✦</span>
+    <span>Emotional Education</span><span class="dot">✦</span>
+    <span>Expert Therapy</span><span class="dot">✦</span>
+    <span>Community Support</span><span class="dot">✦</span>
+    <span>Guided Journaling</span><span class="dot">✦</span>
+    <span>Awareness Campaigns</span><span class="dot">✦</span>
+    <span>Wellness Workshops</span><span class="dot">✦</span>
+    <span>Self-Help Tools</span><span class="dot">✦</span>
+    <span>Corporate Wellness</span><span class="dot">✦</span>
+    <span>Institutional Partnerships</span><span class="dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span>Mental Wellness</span><span class="dot">✦</span>
+    <span>Emotional Education</span><span class="dot">✦</span>
+    <span>Expert Therapy</span><span class="dot">✦</span>
+    <span>Community Support</span><span class="dot">✦</span>
+    <span>Guided Journaling</span><span class="dot">✦</span>
+    <span>Awareness Campaigns</span><span class="dot">✦</span>
+    <span>Wellness Workshops</span><span class="dot">✦</span>
+    <span>Self-Help Tools</span><span class="dot">✦</span>
+    <span>Corporate Wellness</span><span class="dot">✦</span>
+    <span>Institutional Partnerships</span><span class="dot">✦</span>
+  </div>
+</div>
+ 
+<!-- ════ PROBLEM ════ -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="tag reveal">The Reality</div>
+        <h2 class="section-title reveal reveal-delay-1">Women carry the<br><em style="font-style:italic;color:var(--lavender-deep)">invisible burden</em><br>of mental health.</h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:20px;">
+          Women are twice as likely to experience anxiety and depression, yet face unique systemic barriers — from societal stigma to the absence of gender-sensitive mental health services. HerMind exists to close that gap.
+        </p>
+        <div style="margin-top:36px;" class="reveal reveal-delay-3">
+          <a href="#features" class="btn btn-primary">See how we help →</a>
+        </div>
+      </div>
+      <div class="problem-stats-grid">
+        <div class="stat-card c1 reveal">
+          <div class="stat-card-num c1"><em>2×</em></div>
+          <div class="stat-card-label">Women are twice as likely to be diagnosed with depression as men</div>
+        </div>
+        <div class="stat-card c2 reveal reveal-delay-1">
+          <div class="stat-card-num c2"><em>76%</em></div>
+          <div class="stat-card-label">Of women with mental health conditions never seek professional help</div>
+        </div>
+        <div class="stat-card c3 reveal reveal-delay-2">
+          <div class="stat-card-num c3"><em>1 in 3</em></div>
+          <div class="stat-card-label">Working women experience burnout severe enough to affect their health</div>
+        </div>
+        <div class="stat-card c4 reveal reveal-delay-3">
+          <div class="stat-card-num c4"><em>$1T+</em></div>
+          <div class="stat-card-label">Lost annually in global productivity due to untreated women's mental illness</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ WHY WOMEN ════ -->
+<section class="why-women" id="why">
+  <div class="container">
+    <div class="why-header">
+      <div class="tag reveal">Why It Matters</div>
+      <h2 class="section-title reveal reveal-delay-1">Why women need a<br><em style="font-style:italic;color:var(--lavender-deep)">dedicated</em> space</h2>
+      <p class="section-sub reveal reveal-delay-2">Generic mental health platforms weren't built with women's lived experiences in mind. HerMind was.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card bg-lav reveal">
+        <div class="why-icon">🔄</div>
+        <h3>Hormonal & Biological Complexity</h3>
+        <p>PMDD, perimenopause, postpartum depression, and endometriosis-related anxiety are vastly under-addressed. HerMind offers clinically-informed support tailored to a woman's hormonal lifecycle.</p>
+      </div>
+      <div class="why-card bg-blush reveal reveal-delay-1">
+        <div class="why-icon">🏠</div>
+        <h3>Invisible Labour & Role Overload</h3>
+        <p>Mothers and caregivers carry disproportionate emotional labour. Our platform helps women set boundaries, manage fatigue, and rediscover identity outside of their caregiving roles.</p>
+      </div>
+      <div class="why-card bg-sage reveal reveal-delay-2">
+        <div class="why-icon">💼</div>
+        <h3>Workplace Discrimination & Burnout</h3>
+        <p>From gender pay gaps to glass ceilings, workplace stress affects women uniquely. HerMind offers career-specific wellness tools for working professionals navigating hostile environments.</p>
+      </div>
+      <div class="why-card bg-gold reveal reveal-delay-1">
+        <div class="why-icon">🕊️</div>
+        <h3>Trauma & Safety Concerns</h3>
+        <p>One in three women worldwide has experienced violence. HerMind provides trauma-informed care, anonymous support channels, and crisis pathways through a trauma-sensitive lens.</p>
+      </div>
+      <div class="why-card bg-cream reveal reveal-delay-2">
+        <div class="why-icon">🌍</div>
+        <h3>Cultural Stigma & Silencing</h3>
+        <p>In many communities, women are conditioned to suppress emotions. We create culturally aware, multi-lingual support systems that honour diverse backgrounds and lived realities.</p>
+      </div>
+      <div class="why-card bg-white reveal reveal-delay-3">
+        <div class="why-icon">🎓</div>
+        <h3>Student Mental Health Crisis</h3>
+        <p>Young women on campuses face unprecedented levels of anxiety and academic pressure. HerMind's campus programme delivers peer support, counseling, and tools designed for student life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ FEATURES ════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <div class="tag reveal">How We Help</div>
+      <h2 class="section-title reveal reveal-delay-1">Everything a woman<br>needs for her mind</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin-top:16px;">From daily emotional check-ins to one-on-one therapy sessions, HerMind is the complete ecosystem for women's mental wellness.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-lav">🧠</div>
+        <h3>AI Emotional Check-ins</h3>
+        <p>Daily mood tracking powered by empathetic AI that recognises patterns, flags concerns, and offers real-time grounding exercises.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-blush">📔</div>
+        <h3>Guided Journaling</h3>
+        <p>Structured prompts, reflection exercises, and gratitude rituals that build emotional resilience over time with measurable progress tracking.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-sage">🩺</div>
+        <h3>Expert Therapy Booking</h3>
+        <p>Connect with 180+ licensed therapists and counselors. Book video, audio, or chat sessions in minutes, with instant crisis access.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-gold">🌸</div>
+        <h3>Community Circles</h3>
+        <p>Safe, moderated peer support groups for mothers, students, survivors, professionals — real connection with women who understand.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-lav">📚</div>
+        <h3>Emotional Education Library</h3>
+        <p>500+ evidence-based articles, video workshops, and micro-courses covering anxiety, relationships, identity, grief, and more.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-blush">🧘</div>
+        <h3>Mindfulness & Meditation</h3>
+        <p>Women-focused guided meditation, breathwork, body-scan sessions, and sleep stories crafted by certified wellness coaches.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-sage">🆘</div>
+        <h3>Crisis Support Line</h3>
+        <p>24/7 text-based crisis support with trained counselors, and instant routing to emergency services when safety is at risk.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-gold">📈</div>
+        <h3>Wellness Progress Reports</h3>
+        <p>Monthly personal wellness insights, therapy session summaries, and milestone celebrations that keep you motivated and informed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ AWARENESS ════ -->
+<section class="awareness" id="awareness">
+  <div class="awareness-bg"></div>
+  <div class="container">
+    <div class="awareness-header">
+      <div class="tag reveal">Awareness Initiatives</div>
+      <h2 class="section-title reveal reveal-delay-1">Beyond the platform —<br><em style="font-style:italic;">making noise</em> for change</h2>
+      <p class="section-sub reveal reveal-delay-2">HerMind leads campaigns, movements, and collaborations that shift public discourse on women's mental health.</p>
+    </div>
+    <div class="awareness-cards">
+      <div class="awareness-card aw-1 reveal">
+        <div class="icon">📣</div>
+        <h3>#SheFeelsToo</h3>
+        <p>A national social media campaign that breaks the stigma of women expressing emotional distress. Real stories, real voices, real impact — with over 2.1 million impressions in its first run.</p>
+        <a href="#" class="aw-link">Learn more →</a>
+      </div>
+      <div class="awareness-card aw-2 reveal reveal-delay-1">
+        <div class="icon">🏫</div>
+        <h3>Campus Mental Health Drive</h3>
+        <p>We partner with universities across India to install mental wellness kiosks, offer free counseling days, and train peer emotional support volunteers among student bodies.</p>
+        <a href="#" class="aw-link">See partnerships →</a>
+      </div>
+      <div class="awareness-card aw-3 reveal reveal-delay-2">
+        <div class="icon">🤝</div>
+        <h3>Corporate Wellness Pledge</h3>
+        <p>HerMind calls on companies to sign the Women's Wellness Pledge — committing to mental health days, manager empathy training, and anonymous support for women employees.</p>
+        <a href="#contact" class="aw-link">Partner with us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ BUSINESS MODEL ════ -->
+<section class="business" id="business">
+  <div class="container">
+    <div class="business-grid">
+      <div>
+        <div class="tag reveal">Business Model</div>
+        <h2 class="section-title reveal reveal-delay-1">Built to sustain<br>impact at <em style="font-style:italic;color:var(--lavender-deep)">scale</em></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px;">
+          HerMind operates a diversified revenue model that keeps care accessible while building a scalable, investor-ready business. Our freemium model drives acquisition; premium services drive revenue.
+        </p>
+        <div class="revenue-list reveal reveal-delay-3">
+          <div class="rev-item">
+            <div class="rev-icon">💎</div>
+            <div class="rev-text">
+              <h4>Premium Memberships</h4>
+              <p>₹499–₹999/month subscription plans with advanced features</p>
+            </div>
+            <span class="rev-badge badge-high">High MRR</span>
+          </div>
+          <div class="rev-item">
+            <div class="rev-icon">🩺</div>
+            <div class="rev-text">
+              <h4>Therapy Session Booking</h4>
+              <p>Commission-based model on every counselor booking</p>
+            </div>
+            <span class="rev-badge badge-high">High Margin</span>
+          </div>
+          <div class="rev-item">
+            <div class="rev-icon">🏢</div>
+            <div class="rev-text">
+              <h4>Corporate Wellness Packages</h4>
+              <p>B2B plans for companies prioritising women employee wellness</p>
+            </div>
+            <span class="rev-badge badge-high">Recurring</span>
+          </div>
+          <div class="rev-item">
+            <div class="rev-icon">🎓</div>
+            <div class="rev-text">
+              <h4>College Campus Programmes</h4>
+              <p>Annual contracts with universities for campus mental health</p>
+            </div>
+            <span class="rev-badge badge-med">Growing</span>
+          </div>
+          <div class="rev-item">
+            <div class="rev-icon">🌐</div>
+            <div class="rev-text">
+              <h4>NGO & Healthcare Partnerships</h4>
+              <p>CSR-funded access, government grants, and institutional deals</p>
+            </div>
+            <span class="rev-badge badge-med">Strategic</span>
+          </div>
+          <div class="rev-item">
+            <div class="rev-icon">📅</div>
+            <div class="rev-text">
+              <h4>Wellness Workshops & Events</h4>
+              <p>Ticketed online and offline workshops led by certified experts</p>
+            </div>
+            <span class="rev-badge badge-med">Scalable</span>
+          </div>
+        </div>
+      </div>
+      <div class="business-visual reveal">
+        <div class="bv-title">Revenue Composition</div>
+        <div class="bv-sub">Projected Year 2 distribution</div>
+        <div class="bv-rows">
+          <div class="bv-row">
+            <div class="bv-row-label"><span>Premium Subscriptions</span><span>38%</span></div>
+            <div class="bv-bar"><div class="bv-fill fill-lav" data-width="38%"></div></div>
+          </div>
+          <div class="bv-row">
+            <div class="bv-row-label"><span>Therapy Commissions</span><span>24%</span></div>
+            <div class="bv-bar"><div class="bv-fill fill-sage" data-width="24%"></div></div>
+          </div>
+          <div class="bv-row">
+            <div class="bv-row-label"><span>Corporate B2B</span><span>20%</span></div>
+            <div class="bv-bar"><div class="bv-fill fill-blush" data-width="20%"></div></div>
+          </div>
+          <div class="bv-row">
+            <div class="bv-row-label"><span>Institutional & NGO</span><span>12%</span></div>
+            <div class="bv-bar"><div class="bv-fill fill-gold" data-width="12%"></div></div>
+          </div>
+          <div class="bv-row">
+            <div class="bv-row-label"><span>Workshops & Events</span><span>6%</span></div>
+            <div class="bv-bar"><div class="bv-fill fill-lav" data-width="6%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(196,181,212,.25);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div>
+              <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--lavender-deep);">₹4.2Cr</div>
+              <div style="font-size:.78rem;color:var(--text-light);margin-top:4px;">ARR Target — Year 2</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--sage-deep);">340%</div>
+              <div style="font-size:.78rem;color:var(--text-light);margin-top:4px;">Growth Rate — Year 1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ IMPACT ════ -->
+<section class="impact" id="impact">
+  <div class="container">
+    <div class="impact-header">
+      <div class="tag reveal">Social Impact</div>
+      <h2 class="section-title reveal reveal-delay-1">Measuring what<br>actually <em style="font-style:italic;color:var(--lavender-deep)">matters</em></h2>
+      <p class="section-sub reveal reveal-delay-2">We track outcomes, not just metrics. Every number below represents a woman who reclaimed her peace.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-num-card reveal">
+        <div class="impact-number"><em>40K+</em></div>
+        <div class="impact-noun">Women actively supported</div>
+      </div>
+      <div class="impact-num-card reveal reveal-delay-1">
+        <div class="impact-number"><em>96%</em></div>
+        <div class="impact-noun">Report improved emotional wellbeing</div>
+      </div>
+      <div class="impact-num-card reveal reveal-delay-2">
+        <div class="impact-number"><em>28</em></div>
+        <div class="impact-noun">University campuses partnered</div>
+      </div>
+      <div class="impact-num-card reveal reveal-delay-3">
+        <div class="impact-number"><em>12K</em></div>
+        <div class="impact-noun">Therapy sessions facilitated</div>
+      </div>
+    </div>
+    <div class="impact-cta-band reveal">
+      <h2>Ready to create impact<br><em>alongside us?</em></h2>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="#partner" class="btn btn-lavender">Become a Partner</a>
+        <a href="#contact" class="btn btn-outline" style="border-color:rgba(250,247,242,.3);color:var(--cream);">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ TESTIMONIALS ════ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="tag reveal">Real Voices</div>
+      <h2 class="section-title reveal reveal-delay-1">Women who found<br>their way through</h2>
+      <p class="section-sub reveal reveal-delay-2">These are their words, unfiltered.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">After my second child, I spiralled into postpartum anxiety that no one around me recognised. HerMind's community circles and therapist connected me to women who truly understood. I'm now the one helping others.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🌸</div>
+          <div>
+            <div class="testi-name">Aruna Sharma</div>
+            <div class="testi-role">Mother of two · Delhi</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">I was burning out at 24 in a toxic workplace and felt completely alone. HerMind's journaling tools and weekly therapist sessions gave me language for my feelings and the courage to set boundaries professionally.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">💼</div>
+          <div>
+            <div class="testi-name">Tanvi Mehta</div>
+            <div class="testi-role">UX Designer · Bengaluru</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">As a college student managing academic pressure and identity questions, I never thought I deserved help. The campus programme reached me before I reached a crisis. That timing changed everything.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🎓</div>
+          <div>
+            <div class="testi-name">Meera Nair</div>
+            <div class="testi-role">Engineering Student · Pune</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ PRICING ════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header">
+      <div class="tag reveal">Pricing Plans</div>
+      <h2 class="section-title reveal reveal-delay-1">Wellness without<br>financial barriers</h2>
+      <p class="section-sub reveal reveal-delay-2">Choose the plan that fits your life. Upgrade, pause, or cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">Blossom</div>
+        <div class="price-desc">For women taking their first steps</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span><span class="price-num">0</span><br>
+          <span class="price-period">Free forever</span>
+        </div>
+        <ul class="price-features">
+          <li>Daily mood check-ins</li>
+          <li>5 guided journal prompts/month</li>
+          <li>Access to community circles</li>
+          <li>Wellness article library (basic)</li>
+          <li class="off">Expert therapy sessions</li>
+          <li class="off">Personal wellness reports</li>
+          <li class="off">Priority crisis support</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;">Get Started Free</a>
+      </div>
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="price-name">Bloom</div>
+        <div class="price-desc">For women ready to grow deeply</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span><span class="price-num">499</span><br>
+          <span class="price-period">per month · billed monthly</span>
+        </div>
+        <ul class="price-features">
+          <li>Unlimited mood tracking & journaling</li>
+          <li>2 expert therapy sessions/month</li>
+          <li>Full wellness article library</li>
+          <li>Guided meditations & breathwork</li>
+          <li>Monthly personal wellness report</li>
+          <li>24/7 crisis text support</li>
+          <li class="off">Dedicated therapist matching</li>
+        </ul>
+        <a href="#" class="btn btn-lavender" style="width:100%;justify-content:center;">Start 7-Day Free Trial</a>
+      </div>
+      <div class="price-card reveal reveal-delay-2">
+        <div class="price-name">Flourish</div>
+        <div class="price-desc">For women who want everything</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span><span class="price-num">999</span><br>
+          <span class="price-period">per month · billed monthly</span>
+        </div>
+        <ul class="price-features">
+          <li>Everything in Bloom</li>
+          <li>4 expert therapy sessions/month</li>
+          <li>Dedicated therapist matching</li>
+          <li>Personalised care plan</li>
+          <li>Access to live workshops</li>
+          <li>Priority 24/7 crisis line</li>
+          <li>Early access to new features</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Start 7-Day Free Trial</a>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:48px;">
+      <p style="font-size:.9rem;color:var(--text-light);">Looking for corporate or campus pricing? <a href="#contact" style="color:var(--lavender-deep);font-weight:500;">Contact our partnerships team →</a></p>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ PARTNERSHIPS ════ -->
+<section class="partnerships" id="partner">
+  <div class="container">
+    <div class="partnerships-grid">
+      <div>
+        <div class="tag reveal">Why Partner With Us</div>
+        <h2 class="section-title reveal reveal-delay-1">Build a world where<br>women <em style="font-style:italic;color:var(--lavender-deep)">thrive</em> — together</h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px;">
+          HerMind partners with organisations that share our mission. Whether you're a university, a company, an NGO, or an investor, there's a seat at our table.
+        </p>
+        <div class="partner-types reveal reveal-delay-3">
+          <div class="partner-chip">
+            <div class="pc-icon">🏫</div>
+            <h4>Universities & Colleges</h4>
+            <p>Campus wellness programs, peer training, crisis access</p>
+          </div>
+          <div class="partner-chip">
+            <div class="pc-icon">🏢</div>
+            <h4>Corporates & HR Teams</h4>
+            <p>Employee wellness packages for women-forward workplaces</p>
+          </div>
+          <div class="partner-chip">
+            <div class="pc-icon">🌐</div>
+            <h4>NGOs & Foundations</h4>
+            <p>Subsidised access for underserved communities, joint research</p>
+          </div>
+          <div class="partner-chip">
+            <div class="pc-icon">🏥</div>
+            <h4>Healthcare Providers</h4>
+            <p>Digital-first referral pathways, clinical collaboration</p>
+          </div>
+        </div>
+      </div>
+      <div class="investor-box reveal">
+        <div class="tag">Investor Deck Highlights</div>
+        <h3 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:8px;">The opportunity</h3>
+        <p style="font-size:.88rem;color:var(--text-mid);font-weight:300;line-height:1.7;">India's women's mental health market is a $4.8B opportunity growing at 22% CAGR. HerMind is positioned at the intersection of femtech, mental health, and social impact.</p>
+        <div class="investor-metrics">
+          <div class="inv-metric">
+            <div class="inv-metric-val">₹4.2Cr</div>
+            <div class="inv-metric-label">ARR Target (Year 2)</div>
+          </div>
+          <div class="inv-metric">
+            <div class="inv-metric-val">340%</div>
+            <div class="inv-metric-label">Year-on-year growth</div>
+          </div>
+          <div class="inv-metric">
+            <div class="inv-metric-val">₹220</div>
+            <div class="inv-metric-label">Customer Acquisition Cost</div>
+          </div>
+          <div class="inv-metric">
+            <div class="inv-metric-val">18 mo</div>
+            <div class="inv-metric-label">Payback period</div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">Request Investor Deck →</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ VISION ════ -->
+<section class="vision" id="vision">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="tag reveal" style="border-color:rgba(196,181,212,.4);color:var(--lavender);background:rgba(196,181,212,.1);">Vision for the Future</div>
+    <h2 class="section-title reveal reveal-delay-1">HerMind in 2030</h2>
+    <p class="section-sub reveal reveal-delay-2">
+      We're building towards a future where no woman suffers alone, and mental healthcare is as routine as annual health checkups.
+    </p>
+    <div class="vision-milestones reveal">
+      <div class="milestone">
+        <div class="milestone-year">2025 — Now</div>
+        <h3>Foundation</h3>
+        <p>40K users, 28 campuses, 180+ counselors. Proving the model works.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-year">2026</div>
+        <h3>Scale</h3>
+        <p>500K users. 100 corporate clients. Expanding to Southeast Asia.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-year">2027–28</div>
+        <h3>Platform</h3>
+        <p>AI-powered personalised care. Clinical research partnerships. Series B funding.</p>
+      </div>
+      <div class="milestone">
+        <div class="milestone-year">2030</div>
+        <h3>Movement</h3>
+        <p>10M women supported globally. A household name for women's mental wellness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ CONTACT ════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="tag reveal">Get in Touch</div>
+        <h2 class="section-title reveal reveal-delay-1">Let's build something<br><em style="font-style:italic;color:var(--lavender-deep)">meaningful</em></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px;">
+          Whether you're a woman seeking support, a partner wanting to collaborate, an institution looking for campus programs, or an investor ready to back the future of women's wellness — we'd love to hear from you.
+        </p>
+        <div class="contact-details reveal reveal-delay-3">
+          <div class="contact-item"><span class="contact-item-icon">📧</span><span>hello@hermind.in</span></div>
+          <div class="contact-item"><span class="contact-item-icon">📞</span><span>+91 98765 43210</span></div>
+          <div class="contact-item"><span class="contact-item-icon">📍</span><span>Bengaluru · Mumbai · Delhi</span></div>
+          <div class="contact-item"><span class="contact-item-icon">🕐</span><span>Crisis Support: 24 / 7 always available</span></div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Priya" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Sharma" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="priya@company.com" />
+        </div>
+        <div class="form-group">
+          <label>I'm reaching out as a...</label>
+          <select>
+            <option>Woman seeking support</option>
+            <option>University / College</option>
+            <option>Corporate / HR Team</option>
+            <option>NGO / Foundation</option>
+            <option>Healthcare Provider</option>
+            <option>Investor</option>
+            <option>Media / Press</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us how we can help, or how we can work together..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="handleSubmit(event)" style="width:100%;justify-content:center;padding:16px;">Send Message →</button>
+        <p style="font-size:.75rem;color:var(--text-light);text-align:center;margin-top:14px;">We respond within 24 hours. All conversations are confidential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="logo">Her<span>Mind</span></div>
+        <p>A digital sanctuary for every woman's mental wellness journey. Built with care, backed by evidence, and driven by compassion.</p>
+        <div class="footer-socials">
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">in</div>
+          <div class="social-btn">f</div>
+          <div class="social-btn">📷</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Therapy</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Meditation</a></li>
+          <li><a href="#">Crisis Line</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Centre</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 HerMind. All rights reserved. Designed for every woman.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+ 
+<!-- ════ JAVASCRIPT ════ -->
+<script>
+/* ─ Navbar scroll ─ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+ 
+/* ─ Mobile menu ─ */
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+ 
+/* ─ Scroll reveal ─ */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => io.observe(el));
+ 
+/* ─ Animated bar widths ─ */
+const barIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bv-fill[data-width]').forEach(fill => {
+        fill.style.width = fill.dataset.width;
+      });
+      barIo.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const businessVisual = document.querySelector('.business-visual');
+if (businessVisual) barIo.observe(businessVisual);
+ 
+/* ─ Form submission ─ */
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = 'var(--sage-deep)';
+  setTimeout(() => {
+    btn.textContent = 'Send Message →';
+    btn.style.background = '';
+  }, 3000);
+}
+ 
+/* ─ Smooth-in hero elements on load ─ */
+document.addEventListener('DOMContentLoaded', () => {
+  const heroEls = document.querySelectorAll('.hero-content > *, .hero-visual');
+  heroEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity .7s ease ${i * 0.12}s, transform .7s ease ${i * 0.12}s`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    }));
+  });
+});
+ 
+/* ─ Parallax blobs ─ */
+window.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  const blobs = document.querySelectorAll('.hero-bg-blob');
+  blobs.forEach((b, i) => {
+    const factor = (i + 1) * 0.4;
+    b.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+  });
+});
+</script>
+</body>
+</html>
